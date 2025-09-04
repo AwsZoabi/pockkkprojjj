@@ -1,0 +1,281 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Course Project — Frontend Only (Full Spec)</title>
+<style>
+:root{--bg:#0f172a;--panel:#111827;--muted:#94a3b8;--text:#e5e7eb;--brand:#22c55e;--danger:#ef4444;--warn:#f59e0b;--ring:#38bdf8;--card:#0b1220;--shadow:0 10px 30px rgba(0,0,0,.35);--radius:16px}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,Noto Sans;background:radial-gradient(1200px 800px at 80% -10%, rgba(34,197,94,.15), transparent 50%),radial-gradient(1000px 700px at -10% 50%, rgba(56,189,248,.12), transparent 50%),var(--bg);color:var(--text);line-height:1.5}
+header{position:sticky;top:0;z-index:20;backdrop-filter:saturate(140%) blur(10px);background:rgba(15,23,42,.6);border-bottom:1px solid rgba(148,163,184,.15)}
+.nav{max-width:1200px;margin:0 auto;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{font-weight:800}
+.tabs{display:flex;gap:.25rem;flex-wrap:wrap}
+.tab{padding:.55rem .85rem;border-radius:999px;border:1px solid rgba(148,163,184,.2);background:rgba(17,24,39,.6);color:var(--text)}.tab.active{border-color:rgba(34,197,94,.55);box-shadow:inset 0 0 0 1px rgba(34,197,94,.35)}
+main{max-width:1200px;margin:28px auto;padding:0 1rem 5rem}
+.card{background:linear-gradient(180deg, rgba(17,24,39,.85), rgba(11,18,32,.85));border:1px solid rgba(148,163,184,.18);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;margin:1rem 0}
+.grid{display:grid;gap:1rem}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:1000px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.muted{color:var(--muted)}.badge{display:inline-flex;gap:.4rem;padding:.35rem .6rem;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(148,163,184,.08);font-size:.85rem}
+form{display:grid;gap:.85rem}.row{display:grid;gap:.85rem;grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:700px){.row{grid-template-columns:1fr}}
+label{font-weight:600}.input{width:100%;padding:.8rem .9rem;border-radius:12px;background:#0b1220;border:1px solid rgba(148,163,184,.25);color:var(--text);outline:none}
+.input:focus{border-color:var(--ring);box-shadow:0 0 0 4px rgba(56,189,248,.18)}.actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{padding:.75rem 1rem;border-radius:12px;border:1px solid transparent;background:var(--brand);color:#052e16;font-weight:700}
+.btn.secondary{background:#0b1220;color:var(--text);border-color:rgba(148,163,184,.25)}.btn.warn{background:var(--warn);color:#111827}.btn.danger{background:var(--danger);color:#fff}.btn.ghost{background:transparent;border-color:rgba(148,163,184,.25);color:var(--text)}
+.error{color:#fecaca;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);padding:.6rem .75rem;border-radius:10px}
+.success{color:#bbf7d0;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);padding:.6rem .75rem;border-radius:10px}
+section[hidden]{display:none!important}
+.toast{position:fixed;right:20px;bottom:20px;padding:.8rem 1rem;border-radius:12px;background:#0b1220;color:var(--text);border:1px solid rgba(148,163,184,.25);box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s,transform .25s}.toast.show{opacity:1;transform:translateY(0)}
+.table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:.7rem;border-bottom:1px solid rgba(148,163,184,.15)}th{color:var(--muted)}
+.poke-card{display:grid;grid-template-columns:140px 1fr;gap:1rem;align-items:center}
+.pill{display:inline-block;padding:.25rem .6rem;border:1px solid rgba(148,163,184,.25);border-radius:999px;margin-right:.25rem;font-size:.8rem}
+.small{font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">Course Project</div>
+    <nav class="tabs" aria-label="Primary">
+      <a class="tab" href="#/home">Home</a>
+      <a class="tab" href="#/register">Register</a>
+      <a class="tab" href="#/login">Login</a>
+      <a class="tab" href="#/favorites">Favorites</a>
+      <a class="tab" href="#/pokemon">Pokémon</a>
+      <a class="tab" href="#/arena">Arena</a>
+      <a class="tab" href="#/arena/vs-bot">VS Bot</a>
+      <a class="tab" href="#/arena/random-vs-player">Random PvP</a>
+      <a class="tab" href="#/arena/leaderboard">Leaderboard</a>
+      <a class="tab" href="#/users">Users</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="home">
+    <div class="card">
+      <div class="badge">Public Home</div>
+      <h1>Welcome</h1>
+      <p class="muted">Frontend-only: users in <strong>localStorage</strong>, session in <strong>sessionStorage</strong>. Order: Home → Register → Login → Favorites → Pokémon → Arena (VS Bot / Random PvP / History) → Leaderboard → Users → Logout.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="card"><h2>Developers</h2><ul id="team" class="muted"></ul></div>
+      <div class="card"><h2>Start</h2><div class="actions"><a class="btn" href="#/register">Register</a><a class="btn secondary" href="#/login">Login</a></div></div>
+    </div>
+    <div class="card small"><h3>Notes</h3><ul class="muted">
+      <li>Only logged-in users can access Favorites, Pokémon, Arena, and Leaderboard.</li>
+      <li>Pokémon data fetched from public <em>PokéAPI</em>. YouTube embed: paste a video ID.</li>
+      <li>To appear in Leaderboard: at least <strong>5 completed battles</strong>.</li>
+    </ul></div>
+  </section>
+
+  <!-- REGISTER -->
+  <section id="register" hidden>
+    <div class="card"><div class="badge">Register</div><h2>Create account</h2></div>
+    <form id="registerForm" class="card" novalidate>
+      <div class="row">
+        <div><label>Name</label><input id="regName" class="input" placeholder="Full name" required /></div>
+        <div><label>Email</label><input id="regEmail" type="email" class="input" placeholder="name@example.com" required /></div>
+      </div>
+      <div class="row">
+        <div><label>ID</label><input id="regId" class="input" inputmode="numeric" placeholder="9–10 digits" required /></div>
+        <div><label>Password</label><input id="regPassword" type="password" class="input" placeholder="••••••••" required /></div>
+      </div>
+      <div class="row">
+        <div><label>Confirm</label><input id="regConfirm" type="password" class="input" required /></div>
+        <div style="display:flex;align-items:center;gap:.6rem"><input id="regAgree" type="checkbox"/> <span class="muted">I confirm my details.</span></div>
+      </div>
+      <div id="regMsg"></div>
+      <div class="actions"><button class="btn" type="submit">Register</button><button class="btn ghost" type="reset">Reset</button></div>
+    </form>
+  </section>
+
+  <!-- LOGIN -->
+  <section id="login" hidden>
+    <div class="card"><div class="badge">Login</div><h2>Sign in</h2><p class="muted">On success → session saved in <strong>sessionStorage</strong> and you go to Favorites.</p></div>
+    <form id="loginForm" class="card" novalidate>
+      <div class="row"><div><label>Email</label><input id="logEmail" type="email" class="input" required /></div><div><label>Password</label><input id="logPassword" type="password" class="input" required /></div></div>
+      <div id="logMsg"></div>
+      <div class="actions"><button class="btn" type="submit">Login</button><a class="btn secondary" href="#/register">Create account</a></div>
+    </form>
+  </section>
+
+  <!-- FAVORITES (protected) -->
+  <section id="favorites" hidden>
+    <div class="card"><div class="badge">Favorites</div><h2>Favorites</h2>
+      <div class="actions"><a class="btn ghost" href="#/pokemon">Go to Pokémon</a><button id="favExportJson" class="btn secondary">Export JSON</button><button id="favExportCsv" class="btn">Download CSV</button></div>
+    </div>
+    <div class="card">
+      <h3>Add Favorite</h3>
+      <form id="favForm" class="grid" style="grid-template-columns:2fr 1fr;gap:.6rem"><input id="favName" class="input" placeholder="Name or ID" required /><button class="btn" type="submit">Add</button></form>
+    </div>
+    <div class="card">
+      <h3>Your Favorites</h3>
+      <table class="table"><thead><tr><th>#</th><th>Name</th><th>Added</th><th>Action</th></tr></thead><tbody id="favTable"></tbody></table>
+    </div>
+  </section>
+
+  <!-- POKÉMON DETAILS (protected) -->
+  <section id="pokemon" hidden>
+    <div class="card"><div class="badge">Pokémon</div><h2>Details</h2><p class="muted">Fetch by name/ID from PokéAPI and display stats & sprite. Add to Favorites. Optional YouTube embed.</p></div>
+    <div class="card">
+      <form id="pokeForm" class="grid" style="grid-template-columns:2fr 1fr 1fr;gap:.6rem">
+        <input id="pokeQuery" class="input" placeholder="e.g., pikachu or 25" required />
+        <button class="btn" type="submit">Get Pokémon</button>
+        <button class="btn secondary" id="addToFav" type="button" disabled>Add to Favorites</button>
+      </form>
+    </div>
+    <div id="pokeResult" class="card" hidden></div>
+    <div class="card">
+      <h3>YouTube</h3>
+      <div class="row"><input id="ytInput" class="input" placeholder="Paste YouTube Video ID"/><button class="btn" id="ytEmbedBtn" type="button">Embed</button><a id="ytSearch" target="_blank" class="btn ghost" href="https://www.youtube.com/results?search_query=pokemon">Open Search</a></div>
+      <div id="ytWrap" style="margin-top:1rem;aspect-ratio:16/9;background:#0b1220;border:1px solid rgba(148,163,184,.2);border-radius:12px;display:grid;place-items:center"><span class="muted">No video embedded</span></div>
+    </div>
+  </section>
+
+  <!-- ARENA HUB (protected) -->
+  <section id="arena" hidden>
+    <div class="card"><div class="badge">Arena</div><h2>Arena</h2>
+      <ul class="muted"><li>Fight <strong>VS Bot</strong> (pick from your favorites)</li><li>Fight <strong>Random PvP</strong> (you vs random rival)</li><li>View <strong>History</strong></li></ul>
+      <div class="actions"><a class="btn" href="#/arena/vs-bot">VS Bot</a><a class="btn secondary" href="#/arena/random-vs-player">Random PvP</a><button class="btn ghost" id="viewHistory">View History</button><button class="btn warn" id="clearHistory">Clear History</button></div>
+    </div>
+    <div class="card"><h3>Last Battles</h3><table class="table"><thead><tr><th>When</th><th>Player</th><th>Opponent</th><th>Score</th><th>Winner</th><th>Mode</th></tr></thead><tbody id="historyTable"></tbody></table></div>
+  </section>
+
+  <!-- VS BOT (protected) -->
+  <section id="arena-vs-bot" hidden>
+    <div class="card"><div class="badge">Arena</div><h2>VS Bot</h2><p class="muted">Pick one Pokémon from your Favorites. Bot gets a random Pokémon. Weights: HP×0.3 + ATK×0.4 + DEF×0.2 + SPD×0.1</p></div>
+    <div class="card"><h3>Your Favorites</h3><div id="favGrid" class="grid grid-3"></div></div>
+    <div class="grid grid-2">
+      <div id="vbP1" class="card"><h3>Player</h3><div id="vbP1card" class="poke-card muted">Choose a favorite…</div></div>
+      <div id="vbP2" class="card"><h3>Bot</h3><div id="vbP2card" class="poke-card muted">—</div></div>
+    </div>
+    <div class="card"><div class="actions"><button class="btn" id="vbFight" disabled>Fight</button><a class="btn secondary" href="#/arena">Back to Arena</a></div><div id="vbResult" class="muted" style="margin-top:.6rem">—</div></div>
+  </section>
+
+  <!-- RANDOM VS PLAYER (protected) -->
+  <section id="arena-rvp" hidden>
+    <div class="card"><div class="badge">Arena</div><h2>Random PvP</h2><p class="muted">Enter a Pokémon for the player; the rival is random. Same weights as VS Bot.</p></div>
+    <div class="card">
+      <form id="rvpForm" class="grid" style="grid-template-columns:2fr 1fr 1fr;gap:.6rem"><input id="playerPick" class="input" placeholder="player Pokémon (name or id)" required /><button class="btn" type="submit">Fight!</button><a class="btn secondary" href="#/arena">Back</a></form>
+    </div>
+    <div class="grid grid-2"><div id="p1" class="card"><h3>Player</h3><div id="p1card" class="poke-card muted">No data</div></div><div id="p2" class="card"><h3>Rival</h3><div id="p2card" class="poke-card muted">No data</div></div></div>
+    <div class="card"><h3>Result</h3><div id="rvpResult" class="muted">—</div></div>
+  </section>
+
+  <!-- LEADERBOARD (protected) -->
+  <section id="arena-leaderboard" hidden>
+    <div class="card"><div class="badge">Arena</div><h2>Leaderboard</h2><p class="muted">Scoring: Win=3 · Draw=1 · Loss=0. Success%=Wins/Total×100. <strong>Only users with ≥5 battles appear.</strong></p></div>
+    <div class="card"><table class="table"><thead><tr><th>#</th><th>Name</th><th>Email</th><th>W</th><th>D</th><th>L</th><th>Points</th><th>Success%</th></tr></thead><tbody id="lbTable"></tbody></table></div>
+  </section>
+
+  <!-- USERS (protected) -->
+  <section id="users" hidden>
+    <div class="card"><div class="badge">Users</div><h2>Users & Profile</h2><p class="muted" id="welcome"></p><div class="actions"><button class="btn secondary" id="exportUsers">Export Users JSON</button><a class="btn ghost" href="#/favorites">Favorites</a><button class="btn warn" id="logout">Logout</button></div></div>
+    <div class="grid grid-2"><div class="card"><h3>Your Profile</h3><table class="table" id="profileTable"></table></div><div class="card"><h3>All Users</h3><table class="table"><thead><tr><th>#</th><th>Name</th><th>Email</th><th>ID</th><th>Registered</th></tr></thead><tbody id="usersTable"></tbody></table></div></div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ROUTES=["#/home","#/register","#/login","#/favorites","#/pokemon","#/arena","#/arena/vs-bot","#/arena/random-vs-player","#/arena/leaderboard","#/users"];
+function setActiveTab(hash){document.querySelectorAll('.tab').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===hash));}
+function show(hash){const id=(hash||"#/home").replace('#/','');document.querySelectorAll('main>section').forEach(s=>s.hidden=true);const map={"arena/random-vs-player":"arena-rvp","arena/vs-bot":"arena-vs-bot","arena/leaderboard":"arena-leaderboard"};const elId=map[id]||id;document.getElementById(elId).hidden=false;setActiveTab('#/'+id);
+  if(["favorites","pokemon","arena","arena-rvp","arena-vs-bot","arena-leaderboard","users"].includes(elId) && !Auth.current()){toast('Login required','warn');return navigate('#/login');}
+  if(elId==='home') renderTeam();
+  if(elId==='favorites') renderFavorites();
+  if(elId==='pokemon') resetPokemonUI();
+  if(elId==='arena') renderHistory();
+  if(elId==='arena-rvp') resetRVP();
+  if(elId==='arena-vs-bot') renderVSBot();
+  if(elId==='arena-leaderboard') renderLeaderboard();
+  if(elId==='users') renderUsers();}
+function navigate(hash){window.location.hash=hash}window.addEventListener('hashchange',()=>show(window.location.hash));
+
+// Team
+const TEAM=[{name:'Aws Zoabi',id:'214537383'},{name:'Tamer Khatib',id:'314742958'}];
+function renderTeam(){document.getElementById('team').innerHTML=TEAM.map(t=>`<li><strong>${escapeHtml(t.name)}</strong> — <span class="muted">ID: ${escapeHtml(t.id)}</span></li>`).join('');}
+
+// Storage & Auth & Stats & Battles
+const Storage={key:'cp_users_v3',all(){return JSON.parse(localStorage.getItem(this.key)||'[]')},save(x){localStorage.setItem(this.key,JSON.stringify(x))},add(u){const L=this.all();L.push(u);this.save(L)},update(email,patch){const L=this.all();const i=L.findIndex(u=>u.email.toLowerCase()===email.toLowerCase());if(i>-1){L[i]={...L[i],...patch};this.save(L);return L[i]}return null},findEmail(e){return this.all().find(u=>u.email.toLowerCase()===e.toLowerCase())},findId(id){return this.all().find(u=>u.id===id)}};
+const Auth={key:'cp_session',current(){const r=sessionStorage.getItem(this.key);return r?JSON.parse(r):null},login(u){sessionStorage.setItem(this.key,JSON.stringify({email:u.email,when:Date.now()}))},logout(){sessionStorage.removeItem(this.key)}};
+const Battles={key:'cp_battles_v2',all(){return JSON.parse(localStorage.getItem(this.key)||'[]')},save(x){localStorage.setItem(this.key,JSON.stringify(x))},add(b){const L=this.all();L.unshift(b);this.save(L)}};
+const Stats={key:'cp_stats_v1',get(){return JSON.parse(localStorage.getItem(this.key)||'{}')},set(m){localStorage.setItem(this.key,JSON.stringify(m))},bump(email,outcome){const m=this.get();m[email]=m[email]||{w:0,d:0,l:0,points:0,total:0};if(outcome==='win'){m[email].w++;m[email].points+=3}else if(outcome==='draw'){m[email].d++;m[email].points+=1}else{m[email].l++;}m[email].total++;this.set(m)}};
+
+// Helpers
+function nowISO(){return new Date().toISOString()}function toast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.style.borderColor=type==='danger'?'rgba(239,68,68,.4)':type==='warn'?'rgba(245,158,11,.4)':'rgba(34,197,94,.4)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2100)}
+function escapeHtml(s){return s?.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]))}
+const maskEmail=e=>e.replace(/(^.).*(@.*$)/,(_,a,b)=>a+'***'+b);const maskId=id=>id.replace(/.(?=.{3}$)/g,'•');
+const isName=s=>/^[\p{L} ]{3,}$/u.test(s.trim());const isEmail=s=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);const isId=s=>/^\d{9,10}$/.test(s);const isStrong=s=>/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(s);
+
+// Register
+regFormInit();
+function regFormInit(){document.getElementById('registerForm').addEventListener('submit',e=>{e.preventDefault();const name=regName.value.trim(),email=regEmail.value.trim(),id=regId.value.trim(),pass=regPassword.value,confirm=regConfirm.value,agree=regAgree.checked;const msg=regMsg;msg.className='';msg.textContent='';
+  if(!isName(name))return err(msg,'Valid full name required');
+  if(!isEmail(email))return err(msg,'Invalid email');
+  if(Storage.findEmail(email))return err(msg,'Email already registered');
+  if(!isId(id))return err(msg,'ID must be 9–10 digits');
+  if(Storage.findId(id))return err(msg,'ID already registered');
+  if(!isStrong(pass))return err(msg,'Weak password (min 8, letters+numbers)');
+  if(pass!==confirm)return err(msg,'Passwords do not match');
+  if(!agree)return err(msg,'Please confirm your details');
+  Storage.add({name,email,id,password:btoa(pass),createdAt:nowISO(),favorites:[]});msg.className='success';msg.textContent='Registered! Go to login.';toast('Registration successful');setTimeout(()=>navigate('#/login'),900)});} 
+function err(c,t){c.className='error';c.textContent=t;toast(t,'danger')}
+
+// Login
+loginInit();
+function loginInit(){document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();const email=logEmail.value.trim(),pass=logPassword.value;const msg=logMsg;msg.className='';msg.textContent='';const u=Storage.findEmail(email);if(!u)return err(msg,'User not found');if(btoa(pass)!==u.password)return err(msg,'Wrong password');Auth.login(u);toast('Welcome!');navigate('#/favorites')});}
+
+// Users
+logout.addEventListener('click',()=>{Auth.logout();toast('Logged out');navigate('#/home')});
+exportUsers.addEventListener('click',()=>{const blob=new Blob([JSON.stringify(Storage.all(),null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='users.json';a.click();URL.revokeObjectURL(url);toast('Exported users.json')});
+function renderUsers(){const s=Auth.current();const L=Storage.all();const me=L.find(u=>u.email.toLowerCase()===s.email.toLowerCase());welcome.textContent=`Logged in as ${me?.name||s.email}`;profileTable.innerHTML=`<tr><th>Name</th><td>${escapeHtml(me.name)}</td></tr><tr><th>Email</th><td>${escapeHtml(me.email)}</td></tr><tr><th>ID</th><td>${escapeHtml(me.id)}</td></tr><tr><th>Registered</th><td>${new Date(me.createdAt).toLocaleString()}</td></tr><tr><th>Total Favorites</th><td>${me.favorites?.length||0}</td></tr>`;usersTable.innerHTML=L.map((u,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(u.name)}</td><td>${escapeHtml(maskEmail(u.email))}</td><td>${escapeHtml(maskId(u.id))}</td><td>${new Date(u.createdAt).toLocaleString()}</td></tr>`).join('')}
+
+// Favorites
+function me(){const s=Auth.current();return Storage.findEmail(s.email)}
+function renderFavorites(){const list=me().favorites||[];favTable.innerHTML=list.length?list.map((f,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(f.name)}</td><td>${new Date(f.addedAt).toLocaleString()}</td><td><button class='btn danger' data-rm='${f.id}'>Remove</button></td></tr>`).join(''):`<tr><td colspan='4' class='muted'>No favorites yet.</td></tr>`}
+document.addEventListener('submit',e=>{if(e.target?.id==='favForm'){e.preventDefault();const q=favName.value.trim();if(!q)return toast('Type a name or ID','warn');const id=crypto.getRandomValues(new Uint32Array(1))[0].toString(36);const m=me();m.favorites=[...(m.favorites||[]),{id,name:q,addedAt:nowISO()}];Storage.update(m.email,{favorites:m.favorites});renderFavorites();toast('Added')}});
+document.addEventListener('click',e=>{const rm=e.target.closest('button[data-rm]');if(rm){const m=me();m.favorites=(m.favorites||[]).filter(x=>x.id!==rm.getAttribute('data-rm'));Storage.update(m.email,{favorites:m.favorites});renderFavorites();toast('Removed')}});
+function exportBlob(name,text,type){const blob=new Blob([text],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+favExportJson.addEventListener('click',()=>{exportBlob('favorites.json',JSON.stringify(me().favorites||[],null,2),'application/json');toast('Exported favorites.json')});
+favExportCsv.addEventListener('click',()=>{const list=me().favorites||[];const rows=[['id','name','addedAt'],...list.map(f=>[f.id,f.name,f.addedAt])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');exportBlob('favorites.csv',csv,'text/csv');toast('Downloaded favorites.csv')});
+
+// Pokémon details
+const POKE_ENDPOINT=id=>`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(id)}`;
+async function fetchPokemon(q){const r=await fetch(POKE_ENDPOINT(q.toLowerCase()));if(!r.ok)throw new Error('Not found');return r.json()}
+function resetPokemonUI(){pokeResult.hidden=true;addToFav.disabled=true;pokeQuery.value='';ytInput.value='';ytWrap.innerHTML='<span class="muted">No video embedded</span>';ytSearch.href='https://www.youtube.com/results?search_query=pokemon'}
+document.getElementById('pokeForm').addEventListener('submit',async e=>{e.preventDefault();const q=pokeQuery.value.trim();if(!q)return;try{const data=await fetchPokemon(q);renderPoke(data);addToFav.disabled=false;addToFav.dataset.pokename=data.name;ytSearch.href=`https://www.youtube.com/results?search_query=${encodeURIComponent(data.name+' pokemon')}`}catch(err){pokeResult.hidden=false;pokeResult.innerHTML=`<div class='error'>Pokémon not found</div>`;addToFav.disabled=true}});
+function renderPoke(d){const stats=Object.fromEntries(d.stats.map(s=>[s.stat.name,s.base_stat]));const types=d.types.map(t=>t.type.name);pokeResult.hidden=false;pokeResult.innerHTML=`<div class='poke-card'><img alt='sprite' src='${d.sprites.front_default}' width='120' height='120'/><div><h3 style='margin:0 0 .25rem;text-transform:capitalize'>${d.name}</h3><div>${types.map(t=>`<span class='pill'>${t}</span>`).join('')}</div><div class='muted' style='margin-top:.5rem'>HP ${stats.hp} • ATK ${stats.attack} • DEF ${stats.defense} • SPD ${stats.speed} • SP.ATK ${stats['special-attack']} • SP.DEF ${stats['special-defense']}</div></div></div>`}
+addToFav.addEventListener('click',()=>{const nm=addToFav.dataset.pokename;if(!nm)return;const m=me();m.favorites=[...(m.favorites||[]),{id:crypto.getRandomValues(new Uint32Array(1))[0].toString(36),name:nm,addedAt:nowISO()}];Storage.update(m.email,{favorites:m.favorites});toast(`${nm} added to favorites`)});
+ytEmbedBtn.addEventListener('click',()=>{const id=ytInput.value.trim();if(!id)return toast('Paste a YouTube video id','warn');ytWrap.innerHTML=`<iframe width='100%' height='100%' src='https://www.youtube.com/embed/${encodeURIComponent(id)}' title='YouTube video' frameborder='0' allowfullscreen></iframe>`});
+
+// Arena (shared)
+const W={hp:.3,attack:.4,defense:.2,speed:.1};
+function scoreFrom(stats){return stats.hp*W.hp+stats.attack*W.attack+stats.defense*W.defense+stats.speed*W.speed}
+function cardHTML(d){const s=Object.fromEntries(d.stats.map(x=>[x.stat.name,x.base_stat]));const types=d.types.map(t=>t.type.name);return `<div class='poke-card'><img alt='sprite' src='${d.sprites.front_default}' width='120' height='120'/><div><h3 style='margin:0 0 .25rem;text-transform:capitalize'>${d.name}</h3><div>${types.map(t=>`<span class='pill'>${t}</span>`).join('')}</div><div class='muted' style='margin-top:.5rem'>HP ${s.hp} • ATK ${s.attack} • DEF ${s.defense} • SPD ${s.speed}</div></div></div>`}
+function renderHistory(){const H=Battles.all();historyTable.innerHTML=H.length?H.map(b=>`<tr><td>${new Date(b.when).toLocaleString()}</td><td>${escapeHtml(b.p1.name)}</td><td>${escapeHtml(b.p2.name)}</td><td>${b.p1.score.toFixed(1)} : ${b.p2.score.toFixed(1)}</td><td>${escapeHtml(b.winner)}</td><td>${b.mode}</td></tr>`).join(''):`<tr><td colspan='6' class='muted'>No battles yet</td></tr>`}
+viewHistory.addEventListener('click',renderHistory);
+clearHistory.addEventListener('click',()=>{Battles.save([]);renderHistory();toast('History cleared','danger')});
+
+// VS BOT
+async function renderVSBot(){const list=me().favorites||[];const grid=document.getElementById('favGrid');grid.innerHTML=list.length?list.map(f=>`<button class='btn secondary' data-fpick='${escapeHtml(f.name)}' title='Choose ${escapeHtml(f.name)}'>${escapeHtml(f.name)}</button>`).join(''):`<p class='muted'>No favorites yet. Add some in Favorites page.</p>`;vbP1card.textContent='Choose a favorite…';vbP2card.textContent='—';vbResult.textContent='—';vbFight.disabled=true}
+document.addEventListener('click',async e=>{const pick=e.target.closest('button[data-fpick]');if(pick){const name=pick.getAttribute('data-fpick');try{const p1=await fetchPokemon(name);vbP1card.innerHTML=cardHTML(p1);vbP1card.dataset.name=p1.name;vbFight.disabled=false}catch{toast('Fetch error','danger')}}});
+async function vbDoFight(){try{const p1name=vbP1card.dataset.name;if(!p1name){return}const p1=await fetchPokemon(p1name);const p2=await fetchPokemon(Math.floor(Math.random()*898)+1);vbP2card.innerHTML=cardHTML(p2);const s1=scoreFrom(Object.fromEntries(p1.stats.map(s=>[s.stat.name,s.base_stat])));const s2=scoreFrom(Object.fromEntries(p2.stats.map(s=>[s.stat.name,s.base_stat])));const winner=s1===s2?'Draw':(s1>s2?`Player (${p1.name})`:`Bot (${p2.name})`);vbResult.innerHTML=`Total Score = HP×0.3 + ATK×0.4 + DEF×0.2 + SPD×0.1<br><strong>${p1.name}</strong>: ${s1.toFixed(1)} vs <strong>${p2.name}</strong>: ${s2.toFixed(1)} → <strong>${winner}</strong>`;const email=Auth.current().email;let outcome='loss';if(s1===s2) outcome='draw'; else if(s1>s2) outcome='win';Stats.bump(email,outcome);Battles.add({when:nowISO(),p1:{name:p1.name,score:s1},p2:{name:p2.name,score:s2},winner,mode:'bot',email});toast('Battle saved')}catch{vbResult.innerHTML='<div class="error">Error fetching Pokémon</div>'}}
+vbFight.addEventListener('click',vbDoFight);
+
+// Random PvP
+function resetRVP(){p1card.textContent='No data';p2card.textContent='No data';rvpResult.textContent='—'}
+document.getElementById('rvpForm').addEventListener('submit',async e=>{e.preventDefault();const q=playerPick.value.trim();if(!q)return;try{const p1=await fetchPokemon(q);const p2=await fetchPokemon(Math.floor(Math.random()*898)+1);p1card.innerHTML=cardHTML(p1);p2card.innerHTML=cardHTML(p2);const s1=scoreFrom(Object.fromEntries(p1.stats.map(s=>[s.stat.name,s.base_stat])));const s2=scoreFrom(Object.fromEntries(p2.stats.map(s=>[s.stat.name,s.base_stat])));const winner=s1===s2?'Draw':(s1>s2?`Player (${p1.name})`:`Rival (${p2.name})`);rvpResult.innerHTML=`Total Score = HP×0.3 + ATK×0.4 + DEF×0.2 + SPD×0.1<br><strong>${p1.name}</strong>: ${s1.toFixed(1)} vs <strong>${p2.name}</strong>: ${s2.toFixed(1)} → <strong>${winner}</strong>`;const email=Auth.current().email;let outcome='loss';if(s1===s2) outcome='draw'; else if(s1>s2) outcome='win';Stats.bump(email,outcome);Battles.add({when:nowISO(),p1:{name:p1.name,score:s1},p2:{name:p2.name,score:s2},winner,mode:'pvp',email});toast('Battle saved')}catch(err){rvpResult.innerHTML='<div class="error">Error fetching Pokémon</div>'}});
+
+// Leaderboard
+function renderLeaderboard(){const map=Stats.get();const users=Storage.all();const rows=Object.entries(map).map(([email,s])=>{const u=users.find(x=>x.email.toLowerCase()===email.toLowerCase());const success=s.total? (s.w/s.total*100):0;return {name:u?.name||email,email,mask:maskEmail(email),w:s.w,d:s.d,l:s.l,points:s.points,total:s.total,success:success}}).filter(r=>r.total>=5).sort((a,b)=> b.points-a.points || b.success-a.success).map((r,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.mask)}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.points}</td><td>${r.success.toFixed(1)}%</td></tr>`).join('');lbTable.innerHTML=rows||`<tr><td colspan='8' class='muted'>No eligible users yet. Each user needs at least 5 battles.</td></tr>`}
+
+// Init
+if(!ROUTES.includes(window.location.hash)) navigate('#/home');
+show(window.location.hash||'#/home');
+</script>
+</body>
+</html>
